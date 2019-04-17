@@ -5,6 +5,7 @@
 
     $('.url-input').change(function(event) {
         var value = $(event.target).val();
+        value = 'https://archiveofourown.org/works/' + value.match(/[0-9]+/);
 
         $.get('https://cors-anywhere.herokuapp.com/' + value, function(response) {
             var updatedDate = new Date($(response).find('div.header.module p.datetime').text());
