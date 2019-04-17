@@ -1,0 +1,19 @@
+* {
+    position: relative;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+body {
+    display: none;
+    margin: 0 auto;
+    width: 600px;
+    max-width: 100%;
+    padding: 0 15px;
+}
+
+.era {
+    background-color: #000;
+    color: #fff;
+}
