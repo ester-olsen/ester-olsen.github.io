@@ -8,7 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 <body>
-    <div class="container">
+    <div class="container" style="width: 960px; max-width: 100%;">
         <h1 class="mt-3">Ester's Jumpstart deck builder</h1>
         <p class="text-muted">Ester Olsen, 2022-03-01.</p>
         <ol>
@@ -16,15 +16,25 @@
             <li><a href="#twoPackJumpstart">Two-pack Jumpstart</a></li>
             <li><a href="#fourPackJumpstart">Four-pack Jumpstart</a></li>
         </ol>
+        <p class="mb-5">Deck lists are formatted for use on the website untap.in.</p>
         <h2 id="importPacks" class="fw-bold">Import packs</h2>
         <p>Import a CSV file containing Jumpstart packs to randomly pick from, or use Ester's Jumpstart cube.</p>
-        <p class="font-monospace">Pack name,Pack image URL,Card set ID,Card name</p>
-        <p>The first row is skipped over. Strings are encapsulated by quotation marks.</p>
-        <label class="form-label w-100 mb-3">
-            CSV file
-            <input type="file" id="fileInput" class="form-control" />
-        </label>
-        <p><button type="button" id="estersCubeButton" class="btn btn-primary">Load Ester's Jumpstart cube</button></p>
+        <div class="row mb-5">
+            <div class="col border-end">
+                <h3 class="text-primary">CSV format</h3>
+                <p class="font-monospace">Pack name,Pack image URL,Card set ID,Card name</p>
+                <p>The first row is skipped over. Strings are encapsulated by quotation marks.</p>
+                <label class="form-label w-100">
+                    CSV file
+                    <input type="file" id="fileInput" class="form-control" />
+                </label>
+            </div>
+            <div class="col">
+                <h3 class="text-primary">Ester's Jumpstart cube</h3>
+                <p>This cube consists of sixteen packs from the official Jumpstart set — three monocoloured packs of each colour, and the multicoloured Rainbow pack.</p>
+                <p><button type="button" id="estersCubeButton" class="btn btn-primary">Load Ester's Jumpstart cube</button></p>
+            </div>
+        </div>
         <h2 id="twoPackJumpstart" class="fw-bold">Two-pack Jumpstart</h2>
         <figure>
             <blockquote cite="https://magic.wizards.com/en/articles/archive/card-preview/behind-scenes-designing-jumpstart-2020-06-17" class="blockquote">
@@ -36,7 +46,11 @@
             <img src="" id="imageOne" style="width: 10em;" />
             <img src="" id="imageTwo" style="width: 10em;" />
         </p>
-        <textarea readonly rows="10" id="textarea" class="form-control mb-3"></textarea>
+        <p id="packsParagraph"></p>
+        <label class="form-label w-100 mb-5">
+            Deck list
+            <textarea readonly rows="10" id="textarea" class="form-control"></textarea>
+        </label>
         <h2 id="fourPackJumpstart" class="fw-bold">Four-pack Jumpstart</h2>
         <figure>
             <blockquote cite="https://magic.wizards.com/en/articles/archive/card-preview/behind-scenes-designing-jumpstart-2020-06-17" class="blockquote">
@@ -49,23 +63,55 @@
         </figure>
         <h3 class="text-primary mb-3">Your packs</h3>
         <div class="row">
-            <div class="col"><img src="" id="packOneImage" style="width: 10em;" /></div>
-            <div class="col"><textarea rows="10" readonly id="packOneTextarea" class="form-control"></textarea></div>
+            <div class="col">
+                <p><img src="" id="packOneImage" style="width: 10em;" /></p>
+                <p id="packOneParagraph"></p>
+            </div>
+            <div class="col">
+                <label class="form-label w-100">
+                    Pack list
+                    <textarea rows="10" readonly id="packOneTextarea" class="form-control"></textarea>
+                </label>
+            </div>
         </div>
         <hr />
         <div class="row">
-            <div class="col"><img src="" id="packTwoImage" style="width: 10em;" /></div>
-            <div class="col"><textarea rows="10" readonly id="packTwoTextarea" class="form-control"></textarea></div>
+            <div class="col">
+                <p><img src="" id="packTwoImage" style="width: 10em;" /></p>
+                <p id="packTwoParagraph"></p>
+            </div>
+            <div class="col">
+                <label class="form-label w-100">
+                    Pack list
+                    <textarea rows="10" readonly id="packTwoTextarea" class="form-control"></textarea>
+                </label>
+            </div>
         </div>
         <hr />
         <div class="row">
-            <div class="col"><img src="" id="packThreeImage" style="width: 10em;" /></div>
-            <div class="col"><textarea rows="10" readonly id="packThreeTextarea" class="form-control"></textarea></div>
+            <div class="col">
+                <p><img src="" id="packThreeImage" style="width: 10em;" /></p>
+                <p id="packThreeParagraph"></p>
+            </div>
+            <div class="col">
+                <label class="form-label w-100">
+                    Pack list
+                    <textarea rows="10" readonly id="packThreeTextarea" class="form-control"></textarea>
+                </label>
+            </div>
         </div>
         <hr />
         <div class="row mb-3">
-            <div class="col"><img src="" id="packFourImage" style="width: 10em;" /></div>
-            <div class="col"><textarea rows="10" readonly id="packFourTextarea" class="form-control"></textarea></div>
+            <div class="col">
+                <p><img src="" id="packFourImage" style="width: 10em;" /></p>
+                <p id="packFourParagraph"></p>
+            </div>
+            <div class="col">
+                <label class="form-label w-100">
+                    Pack list
+                    <textarea rows="10" readonly id="packFourTextarea" class="form-control"></textarea>
+                </label>
+            </div>
         </div>
         <h3 class="text-primary">Your decks</h3>
         <div class="row mb-3">
@@ -87,7 +133,10 @@
                     <label for="deckOneCheckboxFour" class="form-check-label"></label>
                     <input type="checkbox" id="deckOneCheckboxFour" class="form-check-input" />
                 </div>
-                <textarea rows="10" readonly id="deckOneTextarea" class="form-control"></textarea>
+                <label class="form-label w-100">
+                    Deck list
+                    <textarea rows="10" readonly id="deckOneTextarea" class="form-control"></textarea>
+                </label>
             </div>
             <div class="col">
                 <h4 class="text-secondary">Deck 2</h3>
@@ -107,14 +156,17 @@
                     <label for="deckTwoCheckboxFour" class="form-check-label"></label>
                     <input type="checkbox" id="deckTwoCheckboxFour" class="form-check-input" />
                 </div>
-                <textarea rows="10" readonly id="deckTwoTextarea" class="form-control"></textarea>
+                <label class="form-label w-100">
+                    Deck list
+                    <textarea rows="10" readonly id="deckTwoTextarea" class="form-control"></textarea>
+                </label>
             </div>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script>
         const estersCube = `Pack name,Pack image URL,Card set ID,Card name
-"Dogs 1","https://static.wikia.nocookie.net/mtgsalvation_gamepedia/images/7/76/JMP_Dogs_pack_summary_card.jpg/revision/latest/scale-to-width-down/672?cb=20200928171457","jmp","Affa Guard Hound"
+"Dogs 1","https://static.wikia.nocookie.net/mtgsalvation_gamepedia/images/7/76/JMP_Dogs_pack_summary_card.jpg","jmp","Affa Guard Hound"
 "Dogs 1","","jmp","Supply Runners"
 "Dogs 1","","jmp","Cathar's Companion"
 "Dogs 1","","jmp","Trusty Retriever"
@@ -134,7 +186,7 @@
 "Dogs 1","","jmp","Plains"
 "Dogs 1","","jmp","Plains"
 "Dogs 1","","jmp","Plains"
-"Angels 1","https://static.wikia.nocookie.net/mtgsalvation_gamepedia/images/d/d2/JMP_Angels_pack_summary_card.jpg/revision/latest/scale-to-width-down/672?cb=20200928171046","jmp","Emancipation Angel"
+"Angels 1","https://static.wikia.nocookie.net/mtgsalvation_gamepedia/images/d/d2/JMP_Angels_pack_summary_card.jpg","jmp","Emancipation Angel"
 "Angels 1","","jmp","Serra Angel"
 "Angels 1","","jmp","Angelic Page"
 "Angels 1","","jmp","Voice of the Provinces"
@@ -154,7 +206,7 @@
 "Angels 1","","jmp","Plains"
 "Angels 1","","jmp","Plains"
 "Angels 1","","jmp","Plains"
-"Heavily Armored 2","https://static.wikia.nocookie.net/mtgsalvation_gamepedia/images/9/9b/JMP_Heavily_Armored_pack_summary_card.jpg/revision/latest/scale-to-width-down/672?cb=20200928171644","jmp","Patron of the Valiant"
+"Heavily Armored 2","https://static.wikia.nocookie.net/mtgsalvation_gamepedia/images/9/9b/JMP_Heavily_Armored_pack_summary_card.jpg","jmp","Patron of the Valiant"
 "Heavily Armored 2","","jmp","Bulwark Giant"
 "Heavily Armored 2","","jmp","Trusty Retriever"
 "Heavily Armored 2","","jmp","Lightwalker"
@@ -174,7 +226,7 @@
 "Heavily Armored 2","","jmp","Plains"
 "Heavily Armored 2","","jmp","Plains"
 "Heavily Armored 2","","jmp","Plains"
-"Spirits 1","https://static.wikia.nocookie.net/mtgsalvation_gamepedia/images/d/d5/JMP_Spirits_pack_summary_card.jpg/revision/latest/scale-to-width-down/672?cb=20200928172657","jmp","Battleground Geist"
+"Spirits 1","https://static.wikia.nocookie.net/mtgsalvation_gamepedia/images/d/d5/JMP_Spirits_pack_summary_card.jpg","jmp","Battleground Geist"
 "Spirits 1","","jmp","Departed Deckhand"
 "Spirits 1","","jmp","Nebelgast Herald"
 "Spirits 1","","jmp","Murmuring Phantasm"
@@ -194,7 +246,7 @@
 "Spirits 1","","jmp","Island"
 "Spirits 1","","jmp","Island"
 "Spirits 1","","jmp","Island"
-"Well-Read 1","https://static.wikia.nocookie.net/mtgsalvation_gamepedia/images/6/6d/JMP_Well-Read_pack_summary_card.jpg/revision/latest/scale-to-width-down/672?cb=20200928172950","jmp","Suspicious Bookcase"
+"Well-Read 1","https://static.wikia.nocookie.net/mtgsalvation_gamepedia/images/6/6d/JMP_Well-Read_pack_summary_card.jpg","jmp","Suspicious Bookcase"
 "Well-Read 1","","jmp","Ormos, Archive Keeper"
 "Well-Read 1","","jmp","Oneirophage"
 "Well-Read 1","","jmp","Erratic Visionary"
@@ -214,7 +266,7 @@
 "Well-Read 1","","jmp","Island"
 "Well-Read 1","","jmp","Island"
 "Well-Read 1","","jmp","Island"
-"Pirates 1","https://static.wikia.nocookie.net/mtgsalvation_gamepedia/images/9/9c/JMP_Pirates_pack_summary_card.jpg/revision/latest/scale-to-width-down/672?cb=20200928172342","jmp","Rishadan Airship"
+"Pirates 1","https://static.wikia.nocookie.net/mtgsalvation_gamepedia/images/9/9c/JMP_Pirates_pack_summary_card.jpg","jmp","Rishadan Airship"
 "Pirates 1","","jmp","Corsair Captain"
 "Pirates 1","","jmp","Departed Deckhand"
 "Pirates 1","","jmp","Spectral Sailor"
@@ -234,7 +286,7 @@
 "Pirates 1","","jmp","Island"
 "Pirates 1","","jmp","Island"
 "Pirates 1","","jmp","Island"
-"Vampires 1","https://static.wikia.nocookie.net/mtgsalvation_gamepedia/images/a/a5/JMP_Vampires_pack_summary_card.jpg/revision/latest/scale-to-width-down/672?cb=20200928172854","jmp","Blood Artist"
+"Vampires 1","https://static.wikia.nocookie.net/mtgsalvation_gamepedia/images/a/a5/JMP_Vampires_pack_summary_card.jpg","jmp","Blood Artist"
 "Vampires 1","","jmp","Bloodbond Vampire"
 "Vampires 1","","jmp","Gifted Aetherborn"
 "Vampires 1","","jmp","Kalastria Nightwatch"
@@ -254,7 +306,7 @@
 "Vampires 1","","jmp","Swamp"
 "Vampires 1","","jmp","Swamp"
 "Vampires 1","","jmp","Swamp"
-"Reanimated 1","https://static.wikia.nocookie.net/mtgsalvation_gamepedia/images/a/ab/JMP_Reanimated_pack_summary_card.jpg/revision/latest/scale-to-width-down/672?cb=20200928172526","jmp","Mire Triton"
+"Reanimated 1","https://static.wikia.nocookie.net/mtgsalvation_gamepedia/images/a/ab/JMP_Reanimated_pack_summary_card.jpg","jmp","Mire Triton"
 "Reanimated 1","","jmp","Cadaver Imp"
 "Reanimated 1","","jmp","Crow of Dark Tidings"
 "Reanimated 1","","jmp","Miasmic Mummy"
@@ -274,7 +326,7 @@
 "Reanimated 1","","jmp","Swamp"
 "Reanimated 1","","jmp","Swamp"
 "Reanimated 1","","jmp","Swamp"
-"Witchcraft 2","https://static.wikia.nocookie.net/mtgsalvation_gamepedia/images/1/13/JMP_Witchcraft_pack_summary_card.jpg/revision/latest/scale-to-width-down/672?cb=20200928173004","jmp","Tempting Witch"
+"Witchcraft 2","https://static.wikia.nocookie.net/mtgsalvation_gamepedia/images/1/13/JMP_Witchcraft_pack_summary_card.jpg","jmp","Tempting Witch"
 "Witchcraft 2","","jmp","Bogbrew Witch"
 "Witchcraft 2","","jmp","Witch of the Moors"
 "Witchcraft 2","","jmp","Swarm of Bloodflies"
@@ -294,7 +346,7 @@
 "Witchcraft 2","","jmp","Swamp"
 "Witchcraft 2","","jmp","Swamp"
 "Witchcraft 2","","jmp","Swamp"
-"Dragons 1","https://static.wikia.nocookie.net/mtgsalvation_gamepedia/images/5/50/JMP_Dragons_pack_summary_card.jpg/revision/latest/scale-to-width-down/672?cb=20200928171510","jmp","Dragonloft Idol"
+"Dragons 1","https://static.wikia.nocookie.net/mtgsalvation_gamepedia/images/5/50/JMP_Dragons_pack_summary_card.jpg","jmp","Dragonloft Idol"
 "Dragons 1","","jmp","Rapacious Dragon"
 "Dragons 1","","jmp","Dragonspeaker Shaman"
 "Dragons 1","","jmp","Dragon Hatchling"
@@ -314,7 +366,7 @@
 "Dragons 1","","jmp","Mountain"
 "Dragons 1","","jmp","Mountain"
 "Dragons 1","","jmp","Mountain"
-"Lightning 2","https://static.wikia.nocookie.net/mtgsalvation_gamepedia/images/b/b2/JMP_Lightning_pack_summary_card.jpg/revision/latest/scale-to-width-down/672?cb=20200928172126","jmp","Ball Lightning"
+"Lightning 2","https://static.wikia.nocookie.net/mtgsalvation_gamepedia/images/b/b2/JMP_Lightning_pack_summary_card.jpg","jmp","Ball Lightning"
 "Lightning 2","","jmp","Lightning Phoenix"
 "Lightning 2","","jmp","Living Lightning"
 "Lightning 2","","jmp","Weaver of Lightning"
@@ -334,7 +386,7 @@
 "Lightning 2","","jmp","Mountain"
 "Lightning 2","","jmp","Mountain"
 "Lightning 2","","jmp","Mountain"
-"Smashing 1","https://static.wikia.nocookie.net/mtgsalvation_gamepedia/images/7/7a/JMP_Smashing_pack_summary_card.jpg/revision/latest/scale-to-width-down/672?cb=20200928172627","jmp","Bloodrage Brawler"
+"Smashing 1","https://static.wikia.nocookie.net/mtgsalvation_gamepedia/images/7/7a/JMP_Smashing_pack_summary_card.jpg","jmp","Bloodrage Brawler"
 "Smashing 1","","jmp","Flametongue Kavu"
 "Smashing 1","","jmp","Borderland Marauder"
 "Smashing 1","","jmp","Heartfire Immolator"
@@ -354,7 +406,7 @@
 "Smashing 1","","jmp","Mountain"
 "Smashing 1","","jmp","Mountain"
 "Smashing 1","","jmp","Mountain"
-"Cats 1","https://static.wikia.nocookie.net/mtgsalvation_gamepedia/images/a/a9/JMP_Cats_pack_summary_card.jpg/revision/latest/scale-to-width-down/672?cb=20200928171324","jmp","Keeper of Fables"
+"Cats 1","https://static.wikia.nocookie.net/mtgsalvation_gamepedia/images/a/a9/JMP_Cats_pack_summary_card.jpg","jmp","Keeper of Fables"
 "Cats 1","","jmp","Initiate's Companion"
 "Cats 1","","jmp","Pouncing Cheetah"
 "Cats 1","","jmp","Feral Prowler"
@@ -374,7 +426,7 @@
 "Cats 1","","jmp","Forest"
 "Cats 1","","jmp","Forest"
 "Cats 1","","jmp","Forest"
-"Plus One 1","https://static.wikia.nocookie.net/mtgsalvation_gamepedia/images/a/a9/JMP_Plus_One_pack_summary_card.jpg/revision/latest/scale-to-width-down/672?cb=20200928172424","jmp","Armorcraft Judge"
+"Plus One 1","https://static.wikia.nocookie.net/mtgsalvation_gamepedia/images/a/a9/JMP_Plus_One_pack_summary_card.jpg","jmp","Armorcraft Judge"
 "Plus One 1","","jmp","Nessian Hornbeetle"
 "Plus One 1","","jmp","Ironshell Beetle"
 "Plus One 1","","jmp","Fertilid"
@@ -394,7 +446,7 @@
 "Plus One 1","","jmp","Forest"
 "Plus One 1","","jmp","Forest"
 "Plus One 1","","jmp","Forest"
-"Predatory 1","https://static.wikia.nocookie.net/mtgsalvation_gamepedia/images/2/21/JMP_Predatory_pack_summary_card.jpg/revision/latest/scale-to-width-down/672?cb=20200928172455","jmp","Somberwald Stag"
+"Predatory 1","https://static.wikia.nocookie.net/mtgsalvation_gamepedia/images/2/21/JMP_Predatory_pack_summary_card.jpg","jmp","Somberwald Stag"
 "Predatory 1","","jmp","Sylvan Brushstrider"
 "Predatory 1","","jmp","Neyith of the Dire Hunt"
 "Predatory 1","","jmp","Brindle Shoat"
@@ -414,7 +466,7 @@
 "Predatory 1","","jmp","Forest"
 "Predatory 1","","jmp","Forest"
 "Predatory 1","","jmp","Forest"
-"Rainbow","https://static.wikia.nocookie.net/mtgsalvation_gamepedia/images/0/03/JMP_Rainbow_pack_summary_card.jpg/revision/latest/scale-to-width-down/672?cb=20200928172512","jmp","Maelstrom Archangel"
+"Rainbow","https://static.wikia.nocookie.net/mtgsalvation_gamepedia/images/0/03/JMP_Rainbow_pack_summary_card.jpg","jmp","Maelstrom Archangel"
 "Rainbow","","jmp","Chamber Sentry"
 "Rainbow","","jmp","Dinrova Horror"
 "Rainbow","","jmp","Fusion Elemental"
@@ -437,7 +489,8 @@
 
         const twoPackElements = {
             images: [document.getElementById('imageOne'), document.getElementById('imageTwo')],
-            textarea: document.getElementById('textarea')
+            textarea: document.getElementById('textarea'),
+            paragraph: document.getElementById('packsParagraph')
         };
 
         const fourPackElements = {
@@ -467,6 +520,12 @@
             deckTextareas: [
                 document.getElementById('deckOneTextarea'),
                 document.getElementById('deckTwoTextarea')
+            ],
+            paragraphs: [
+                document.getElementById('packOneParagraph'),
+                document.getElementById('packTwoParagraph'),
+                document.getElementById('packThreeParagraph'),
+                document.getElementById('packFourParagraph')
             ]
         };
 
@@ -522,6 +581,7 @@
                 elements.images[i].setAttribute('src', packs[i].imageURL);
             }
             write(packs.slice(0, 2), elements.textarea);
+            elements.paragraph.innerHTML = `You opened ${packs[0].name} and ${packs[1].name}.`;
         }
 
         function openFourPacks(packs, elements) {
@@ -537,15 +597,21 @@
                 write([packs[i]], elements.packTextareas[i]);
             }
 
+            // Update pack names
+            for (let i = 0; i < 4; i++) {
+                elements.paragraphs[i].innerHTML = packs[i].name;
+            }
+
+            // Update checkboxes
             for (let deckIndex = 0; deckIndex < 2; deckIndex++) {
                 for (let checkIndex = 0; checkIndex < 4; checkIndex++) {
                     let checkbox = elements.deckCheckboxes[deckIndex][checkIndex];
 
-                    // Update checkbox labels
+                    // Update labels
                     checkbox.previousElementSibling.innerHTML = packs[checkIndex].name;
                     checkbox.checked = false;
 
-                    // Update checkbox events
+                    // Update events
                     checkbox.addEventListener('change', () => {
                         writeDeck(packs.slice(0, 4), elements.deckCheckboxes[deckIndex], elements.deckTextareas[deckIndex]);
                         updateCheckboxes(elements.deckCheckboxes);
