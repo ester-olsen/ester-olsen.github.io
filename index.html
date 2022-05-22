@@ -30,7 +30,7 @@
     </div>
     <div id="load-esters-cube">
         <h3 class="border-bottom mt-4">Ester's Jumpstart cube</h3>
-        <p>This cube consists of sixteen packs from the official Jumpstart set — three monocolour packs of each colour, and the multicolour Rainbow pack — plus a custom bears pack and a custom gorgons pack.</p>
+        <p>This cube is a mix of packs from the official Jumpstart release and custom packs.</p>
         <p><button type="button" id="esters-cube-button" class="btn btn-primary">Load Ester's Jumpstart cube</button></p>
     </div>
     <div id="two-pack">
@@ -117,6 +117,26 @@
 "Heavily Armored 2","","jmp","Plains"
 "Heavily Armored 2","","jmp","Plains"
 "Heavily Armored 2","","jmp","Plains"
+"Enchanted 1","https://static.wikia.nocookie.net/mtgsalvation_gamepedia/images/5/59/JMP_Enchanted_pack_summary_card.jpg","jmp","Kor Spiritdancer"
+"Enchanted 1", "", "jmp", "Blessed Spirits"
+"Enchanted 1", "", "jmp", "Stone Haven Pilgrim"
+"Enchanted 1", "", "jmp", "Trusty Retriever"
+"Enchanted 1", "", "jmp", "Knight of the Tusk"
+"Enchanted 1", "", "jmp", "Anointed Chorister"
+"Enchanted 1", "", "jmp", "Face of Divinity"
+"Enchanted 1", "", "jmp", "Knightly Valor"
+"Enchanted 1", "", "jmp", "Forced Worship"
+"Enchanted 1", "", "jmp", "Indomitable Will"
+"Enchanted 1", "", "jmp", "Faith's Fetters"
+"Enchanted 1", "", "jmp", "Dub"
+"Enchanted 1", "", "jmp", "Thriving Heath"
+"Enchanted 1", "", "jmp", "Plains"
+"Enchanted 1", "", "jmp", "Plains"
+"Enchanted 1", "", "jmp", "Plains"
+"Enchanted 1", "", "jmp", "Plains"
+"Enchanted 1", "", "jmp", "Plains"
+"Enchanted 1", "", "jmp", "Plains"
+"Enchanted 1", "", "jmp", "Plains"
 "Spirits 1","https://static.wikia.nocookie.net/mtgsalvation_gamepedia/images/d/d5/JMP_Spirits_pack_summary_card.jpg","jmp","Battleground Geist"
 "Spirits 1","","jmp","Departed Deckhand"
 "Spirits 1","","jmp","Nebelgast Herald"
@@ -317,6 +337,26 @@
 "Smashing 1","","jmp","Mountain"
 "Smashing 1","","jmp","Mountain"
 "Smashing 1","","jmp","Mountain"
+"Chandra","https://static.wikia.nocookie.net/mtgsalvation_gamepedia/images/b/b6/JMP_Chandra_pack_summary_card.jpg","jmp","Chandra, Heart of Fire"
+"Chandra","","jmp","Pyroclastic Elemental"
+"Chandra","","jmp","Young Pyromancer"
+"Chandra","","jmp","Fanatical Firebrand"
+"Chandra","","jmp","Chandra's Incinerator"
+"Chandra","","jmp","Chandra's Pyreling"
+"Chandra","","jmp","Chandra's Magmutt"
+"Chandra","","jmp","Chandra's Magmutt"
+"Chandra","","jmp","Flames of the Firebrand"
+"Chandra","","jmp","Pillar of Flame"
+"Chandra","","jmp","Hungry Flames"
+"Chandra","","jmp","Thrill of Possibility"
+"Chandra","","jmp","Thriving Bluff"
+"Chandra","","jmp","Mountain"
+"Chandra","","jmp","Mountain"
+"Chandra","","jmp","Mountain"
+"Chandra","","jmp","Mountain"
+"Chandra","","jmp","Mountain"
+"Chandra","","jmp","Mountain"
+"Chandra","","jmp","Mountain"
 "Cats 1","https://static.wikia.nocookie.net/mtgsalvation_gamepedia/images/a/a9/JMP_Cats_pack_summary_card.jpg","jmp","Keeper of Fables"
 "Cats 1","","jmp","Initiate's Companion"
 "Cats 1","","jmp","Pouncing Cheetah"
@@ -461,7 +501,7 @@
                 shuffle(packs);
                 document.getElementById('two-pack').insertAdjacentHTML('beforeend', `<p><img src="${packs[0].imageURL}" alt="${packs[0].name}" style="width: 10em;" /> <img src="${packs[1].imageURL}" alt="${packs[1].name}" style="width: 10em;" /></p>`);
                 document.getElementById('two-pack').insertAdjacentHTML('beforeend', `<label for="two-pack-textarea" class="form-label">Deck list</label>`);
-                document.getElementById('two-pack').insertAdjacentHTML('beforeend', `<textarea rows="10" readonly id="two-pack-textarea" class="form-control">${getDeckList(packs[0].cards.concat(packs[1].cards))}</textarea>`);
+                document.getElementById('two-pack').insertAdjacentHTML('beforeend', `<textarea rows="10" readonly id="two-pack-textarea" class="form-control">${getDeckList(packs[0].cards)}\n${getDeckList(packs[1].cards)}</textarea>`);
             }
 
             // Open four-pack Jumpstart
@@ -487,7 +527,25 @@
             }
 
             function getDeckList(cards) {
-                return cards.map(card => `1 ${card.name} (${card.setID})`).join('\n');
+                let quantities = {};
+
+                // Count the quantity of each card name
+                cards.forEach(card => {
+                    if (quantities[card.name]) {
+                        quantities[card.name]++;
+                    }
+                    else {
+                        quantities[card.name] = 1;
+                    }
+                });
+
+                // Filter out duplicate cards from the pack
+                cards = cards.filter((value, index, array) => {
+                    return array.indexOf(array.find(card => card.name == value.name)) == index;
+                });
+
+                // Return a string
+                return cards.map(card => `${quantities[card.name]} ${card.name} (${card.setID})`).join('\n');
             }
         }
 
@@ -504,3 +562,8 @@
     </script>
 </body>
 </html>
+<!--
+    U Ester's eldritch mill
+
+    (B Rogues)
+-->
